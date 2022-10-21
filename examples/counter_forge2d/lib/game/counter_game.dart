@@ -1,14 +1,21 @@
 import 'package:flame/components.dart';
-import 'package:flame/geometry.dart';
-import 'package:flame/text.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
+/// {@template counter_game}
+/// A simple phsyics game that counts how many times the screen is tapped.
+/// {@endtemplate}
 class CounterGame extends Forge2DGame {
-  CounterGame() : super(gravity: Vector2(0, 10));
+  /// {@macro counter_game}
+  CounterGame({
+    required Color backgroundColor,
+  })  : _backgroundColor = backgroundColor,
+        super(gravity: Vector2(0, 10));
+
+  final Color _backgroundColor;
 
   @override
-  Color backgroundColor() => Colors.white;
+  Color backgroundColor() => _backgroundColor;
 
   @override
   Future<void> onLoad() async {
@@ -18,7 +25,7 @@ class CounterGame extends Forge2DGame {
         _NumberBodyComponent()
           ..paint
           ..setColor(Colors.red),
-        _WallBodyComoponent()
+        _WallBodyComponent()
       ],
     );
   }
@@ -66,15 +73,9 @@ class _NumberBodyComponent extends BodyComponent {
   }
 }
 
-class _WallBodyComoponent extends BodyComponent with ContactCallbacks {
-  _WallBodyComoponent() {
+class _WallBodyComponent extends BodyComponent {
+  _WallBodyComponent() {
     paint.color = Colors.blue;
-  }
-
-  @override
-  void beginContact(Object other, Contact contact) {
-    super.beginContact(other, contact);
-    print('contact');
   }
 
   @override
@@ -83,8 +84,6 @@ class _WallBodyComoponent extends BodyComponent with ContactCallbacks {
     final fixtureDef = FixtureDef(shape);
     final bodyDef = BodyDef(
       position: Vector2(0, gameRef.size.y + 0.1),
-      type: BodyType.static,
-      userData: this,
     );
     final body = world.createBody(bodyDef);
     body.createFixture(fixtureDef);
