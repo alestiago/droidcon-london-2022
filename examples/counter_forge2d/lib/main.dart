@@ -30,6 +30,7 @@ class _CounterPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Flutter Demo Home Page')),
       body: GameWidget.controlled(
         gameFactory: () => CounterGame(
+          textStyle: theme.textTheme.bodySmall!,
           backgroundColor: theme.backgroundColor,
         ),
       ),

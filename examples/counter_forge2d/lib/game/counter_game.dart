@@ -9,10 +9,13 @@ class CounterGame extends Forge2DGame {
   /// {@macro counter_game}
   CounterGame({
     required Color backgroundColor,
+    required this.textStyle,
   })  : _backgroundColor = backgroundColor,
         super(gravity: Vector2(0, 10));
 
   final Color _backgroundColor;
+
+  final TextStyle textStyle;
 
   @override
   Color backgroundColor() => _backgroundColor;
@@ -22,11 +25,16 @@ class CounterGame extends Forge2DGame {
     await super.onLoad();
     await addAll(
       [
-        NumberBodyComponent()
-          ..paint
-          ..setColor(Colors.red),
+        NumberBodyComponent.zero(
+          textStyle: textStyle,
+        ),
         ScreenBoundaryComponent()
       ],
     );
+    Future.delayed(Duration(seconds: 2), () {
+      add(NumberBodyComponent.zero(
+        textStyle: textStyle,
+      ));
+    });
   }
 }

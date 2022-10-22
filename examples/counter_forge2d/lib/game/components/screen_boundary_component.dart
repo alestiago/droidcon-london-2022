@@ -1,5 +1,4 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flutter/material.dart';
 
 /// {@template screen_boundary_component}
 /// A physics body that represents the screen boundary.
@@ -9,17 +8,35 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class ScreenBoundaryComponent extends BodyComponent {
   /// {@macro screen_boundary_component}
-  ScreenBoundaryComponent() {
-    paint.color = Colors.blue;
-  }
+  ScreenBoundaryComponent();
 
   @override
   Body createBody() {
-    final shape = PolygonShape()..setAsBoxXY(gameRef.size.x, 0.1);
-    final fixtureDef = FixtureDef(shape);
+    const strokeWidth = 0.0;
+    final shapes = [
+      PolygonShape()..setAsBoxXY(gameRef.size.x, strokeWidth),
+      PolygonShape()..setAsBoxXY(strokeWidth, gameRef.size.y),
+      PolygonShape()
+        ..setAsBox(
+          strokeWidth,
+          gameRef.size.y,
+          Vector2(gameRef.size.x, 0),
+          0,
+        ),
+      PolygonShape()
+        ..setAsBox(
+          gameRef.size.x,
+          strokeWidth,
+          Vector2(0, gameRef.size.y),
+          0,
+        ),
+    ];
+
     final bodyDef = BodyDef(
-      position: Vector2(0, gameRef.size.y + 0.1),
+      position: Vector2(0, gameRef.size.y),
     );
-    return world.createBody(bodyDef)..createFixture(fixtureDef);
+    final body = world.createBody(bodyDef);
+    shapes.forEach(body.createFixtureFromShape);
+    return body;
   }
 }
