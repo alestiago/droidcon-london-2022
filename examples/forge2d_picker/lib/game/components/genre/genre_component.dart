@@ -1,8 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame_forge2d/body_component.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/painting.dart';
-import 'package:forge2d_picker/game/components/genre/behaviors/behaviors.dart';
+import 'package:forge2d_picker/game/game.dart';
+
+export 'package:forge2d_picker/game/components/genre/behaviors/behaviors.dart';
 
 class GenreComponent extends BodyComponent {
   GenreComponent({
@@ -16,6 +17,16 @@ class GenreComponent extends BodyComponent {
               anchor: Anchor.center,
               radius: 50,
               paint: Paint()..color = color,
+            ),
+            TextComponent(
+              anchor: Anchor.center,
+              text: name,
+              textRenderer: TextPaint(
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Color(0xFFFFFFFF),
+                ),
+              ),
             ),
           ],
         );
