@@ -1,1 +1,2 @@
+export 'components/components.dart';
 export 'music_genre_picker.dart';
