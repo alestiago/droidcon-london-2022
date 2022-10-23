@@ -6,7 +6,7 @@ class GravitatingBehavior extends Component with ParentIsA<BodyComponent> {
   Future<void> onLoad() async {
     await super.onLoad();
     parent.body.gravityOverride = Vector2.zero();
-    parent.body.linearDamping = 10;
+    parent.body.linearDamping = 5;
   }
 
   @override
