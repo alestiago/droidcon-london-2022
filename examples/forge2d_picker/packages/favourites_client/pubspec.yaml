@@ -1,0 +1,19 @@
+name: favourites_client
+description: A Very Good Project created by Very Good CLI.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  cloud_firestore: ^4.0.2
+  equatable: ^2.0.5
+  json_annotation: ^4.7.0
+
+dev_dependencies:
+  build_runner: ^2.2.0
+  json_serializable: ^6.5.3
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.1.0
+

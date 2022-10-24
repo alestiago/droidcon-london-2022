@@ -7,8 +7,14 @@ environment:
   sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
+  cloud_firestore: ^4.0.2
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
+  favourites_client:
+    path: packages/favourites_client
+  favourites_repository:
+    path: packages/favourites_repository
+  firebase_core: ^2.1.0
   flame: ^1.4.0
   flame_bloc: ^1.8.0
   flame_forge2d: ^0.12.3

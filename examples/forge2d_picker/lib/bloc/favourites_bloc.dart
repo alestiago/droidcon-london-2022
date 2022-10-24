@@ -1,6 +1,9 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:favourites_client/favourites_client.dart';
+import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,31 +23,40 @@ final _widgets = [
 ];
 
 class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
-  FavouritesBloc() : super(FavouritesState.intial()) {
+  FavouritesBloc(this._repository) : super(FavouritesState.intial()) {
+    on<FavouritesInitialized>(_onFavouritesInitialized);
     on<FavouritesLiked>(_onFavouritesLiked);
-
-    // TODO(jamesblasco): Remove random liker in favour of Firebase.
-    _randomLiker();
   }
 
-  void _onFavouritesLiked(FavouritesLiked event, Emitter emit) {
-    print(state.ranking);
-    final ranking = state.ranking;
-    final newRanking = Map<String, int>.from(state.ranking);
-    newRanking[event.name] = (ranking[event.name] ?? 0) + 1;
-    emit(
-      state.copyWith(
-        ranking: UnmodifiableMapView(newRanking),
-      ),
+  FavouritesRepository _repository;
+
+  Future<void> _onFavouritesInitialized(
+      FavouritesInitialized event, Emitter<FavouritesState> emit) async {
+    await emit.forEach(
+      _repository.favourites(),
+      onData: (FavouritesData data) {
+        final newState = state.copyWith(
+          ranking: UnmodifiableMapView(data.values),
+        );
+        print(data);
+        return newState;
+      },
     );
   }
 
-  Future<void> _randomLiker() async {
-    _widgets.shuffle();
-    add(FavouritesLiked(_widgets.first));
+  Future<void> _onFavouritesLiked(
+    FavouritesLiked event,
+    Emitter<FavouritesState> emit,
+  ) async {
+    final ranking = state.ranking;
+    final newRanking = Map<String, int>.from(state.ranking);
+    newRanking[event.name] = (ranking[event.name] ?? 0) + 1;
+    final newState = state.copyWith(
+      ranking: UnmodifiableMapView(newRanking),
+    );
 
-    if (!isClosed) {
-      Future.delayed(const Duration(seconds: 1), _randomLiker);
-    }
+    await _repository.updateFavourites(
+      FavouritesData(values: newState.ranking),
+    );
   }
 }

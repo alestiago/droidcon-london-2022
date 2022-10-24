@@ -4,18 +4,19 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/painting.dart';
 import 'package:forge2d_picker/game/components/genre/behaviors/sizing_behavior.dart';
 import 'package:forge2d_picker/game/game.dart';
+import 'package:forge2d_picker/propagators/tappable_propagator.dart';
+
+import 'behaviors/like_behavior.dart';
 
 export 'package:forge2d_picker/game/components/genre/behaviors/behaviors.dart';
 
-class GenreComponent extends BodyComponent {
+class GenreComponent extends BodyComponent with Tappable, TappablePropagator {
   GenreComponent({
     required this.name,
     required this.color,
     required this.initialPosition,
   }) : super(
           children: [
-            GravitatingBehavior(),
-            SizingBehaviour(),
             CircleComponent(
               anchor: Anchor.center,
               radius: 50,
@@ -31,6 +32,9 @@ class GenreComponent extends BodyComponent {
                 ),
               ),
             ),
+            GravitatingBehavior(),
+            SizingBehaviour(),
+            LikingBehaviour(),
           ],
         ) {
     paint = Paint()..color = Color(0x00000000);

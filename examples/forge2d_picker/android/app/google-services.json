@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "680639596708",
+    "project_id": "favwidget",
+    "storage_bucket": "favwidget.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680639596708:android:5cf7fac7500b65d3cf3e31",
+        "android_client_info": {
+          "package_name": "com.example.forge2d_picker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680639596708-9qct51mb72p9ass90gg6mbvml0vbpgj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwytP3Il7gK9epEc0dgdp67gWVk8NZV48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680639596708-9qct51mb72p9ass90gg6mbvml0vbpgj4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "680639596708-umr2qhrm9lcc5lvg38bnqljl3d9mcika.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.forge2dPicker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

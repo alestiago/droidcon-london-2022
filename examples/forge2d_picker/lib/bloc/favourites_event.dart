@@ -5,6 +5,13 @@ abstract class FavouritesEvent extends Equatable {
   const FavouritesEvent();
 }
 
+class FavouritesInitialized extends FavouritesEvent {
+  const FavouritesInitialized();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class FavouritesLiked extends FavouritesEvent {
   const FavouritesLiked(this.name);
 

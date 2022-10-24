@@ -8,7 +8,7 @@ import 'package:forge2d_picker/bloc/favourites_bloc.dart';
 import 'package:forge2d_picker/game/behaviors/spawning_behavior.dart';
 import 'package:forge2d_picker/game/game.dart';
 
-class MusicGenrePicker extends Forge2DGame {
+class MusicGenrePicker extends Forge2DGame with HasTappables {
   MusicGenrePicker({
     required this.favouritesBloc,
   }) : super(
