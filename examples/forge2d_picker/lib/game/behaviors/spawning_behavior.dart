@@ -15,9 +15,6 @@ class SpawningBehavior extends Component
   @override
   bool listenWhen(FavouritesState previousState, FavouritesState newState) {
     // TODO(jamesblasco): Improve or simplify this logic as needed.
-    print('previous: ${previousState.ranking}');
-    print('newState: ${newState.ranking}');
-
     final difference = newState.ranking.entries
         .where((entry) => previousState.ranking[entry.key] != entry.value)
         .toList();
