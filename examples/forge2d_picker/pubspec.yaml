@@ -9,9 +9,11 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   flame: ^1.4.0
+  flame_bloc: ^1.8.0
   flame_forge2d: ^0.12.3
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:
