@@ -4,6 +4,11 @@ part of 'favourites_bloc.dart';
 class FavouritesState extends Equatable {
   const FavouritesState(this.ranking);
 
+  FavouritesState.intial()
+      : this(
+          UnmodifiableMapView(<String, int>{}),
+        );
+
   /// Represents the ranking of the widgets.
   ///
   /// The key is the name of the widget and the value is the amount

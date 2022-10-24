@@ -7,22 +7,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favourites_event.dart';
 part 'favourites_state.dart';
 
+final _widgets = [
+  'SizedBox',
+  'Container',
+  'Text',
+  'Row',
+  'Column',
+  'ListView',
+  'Stack',
+  'Align',
+  'Padding',
+];
+
 class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
-  FavouritesBloc()
-      : super(
-          FavouritesState(
-            UnmodifiableMapView(
-              <String, int>{
-                'SizedBox': 0,
-                'ColoredBox': 0,
-                'Stack': 0,
-                'Row': 0,
-                'MaterialApp': 0,
-              },
-            ),
-          ),
-        ) {
+  FavouritesBloc() : super(FavouritesState.intial()) {
     on<FavouritesLiked>(_onFavouritesLiked);
+
     // TODO(jamesblasco): Remove random liker in favour of Firebase.
     _randomLiker();
   }
@@ -40,13 +40,8 @@ class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
   }
 
   Future<void> _randomLiker() async {
-    final ranking = state.ranking;
-    final newRanking = Map<String, int>.from(state.ranking);
-    final randomKey = (ranking.keys.toList()..shuffle()).first;
-    newRanking[randomKey] = (ranking[randomKey] ?? 0) + 1;
-    add(
-      FavouritesLiked(randomKey),
-    );
+    _widgets.shuffle();
+    add(FavouritesLiked(_widgets.first));
 
     if (!isClosed) {
       Future.delayed(const Duration(seconds: 1), _randomLiker);
