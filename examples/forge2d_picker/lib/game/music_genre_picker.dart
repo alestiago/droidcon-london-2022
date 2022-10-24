@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/painting.dart';
 import 'package:forge2d_picker/bloc/favourites_bloc.dart';
 import 'package:forge2d_picker/game/game.dart';
 
-class MusicGenrePicker extends Forge2DGame with HasTappables {
+class MusicGenrePicker extends Forge2DGame {
   MusicGenrePicker({
     required this.favouritesBloc,
   }) : super(
@@ -23,15 +24,8 @@ class MusicGenrePicker extends Forge2DGame with HasTappables {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    final genres = [
-      'Rock',
-      'Pop',
-      'Hip Hop',
-      'Rap',
-      'Country',
-    ];
     final children = <Component>[];
-    for (final genre in genres) {
+    for (final genre in favouritesBloc.state.ranking.keys) {
       final randomPosition = Vector2(
         _random.nextDouble() * size.x,
         _random.nextDouble() * size.y,

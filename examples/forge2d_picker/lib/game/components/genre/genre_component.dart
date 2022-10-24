@@ -2,11 +2,12 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/painting.dart';
+import 'package:forge2d_picker/game/components/genre/behaviors/sizing_behavior.dart';
 import 'package:forge2d_picker/game/game.dart';
 
 export 'package:forge2d_picker/game/components/genre/behaviors/behaviors.dart';
 
-class GenreComponent extends BodyComponent with Tappable {
+class GenreComponent extends BodyComponent {
   GenreComponent({
     required this.name,
     required this.color,
@@ -14,6 +15,7 @@ class GenreComponent extends BodyComponent with Tappable {
   }) : super(
           children: [
             GravitatingBehavior(),
+            SizingBehaviour(),
             CircleComponent(
               anchor: Anchor.center,
               radius: 50,
@@ -42,21 +44,11 @@ class GenreComponent extends BodyComponent with Tappable {
 
   double radius = 50;
 
-  static const double _borderWidth = 1;
-
-  @override
-  bool onTapDown(TapDownInfo info) {
-    final circleComponent = children.whereType<CircleComponent>().first;
-    final shape = body.fixtures.first.shape;
-    circleComponent.radius *= 1.2;
-    shape.radius = circleComponent.radius + _borderWidth;
-
-    return super.onTapDown(info);
-  }
+  final borderWidth = 1;
 
   @override
   Body createBody() {
-    final shape = CircleShape()..radius = radius + _borderWidth;
+    final shape = CircleShape()..radius = radius + borderWidth;
     final fixtureDef = FixtureDef(shape)
       ..density = 1.0
       ..restitution = 0.5;
